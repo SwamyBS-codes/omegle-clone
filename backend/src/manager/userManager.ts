@@ -6,6 +6,7 @@ export interface User
     name:string,
     socket:Socket
 }
+let count=0;
 export class userManager
 {
     private users:User[]
@@ -23,21 +24,28 @@ export class userManager
             name,socket
         })
         this.queue.push(socket.id);
+        socket.send("lobby");
         this.clearQueue();
+        this.initHandler(socket)
     }
     removeUser(socketId:string)
     {
+        const userExit=this.users.find(x=>x.socket.id==socketId)
         this.users=this.users.filter(x=> x.socket.id!==socketId)
         this.queue=this.queue.filter(x=>x!==socketId)
     }
     clearQueue()
     {
+        console.log(this.users)
+        console.log("inside clear queue");
         if(this.queue.length <2) 
         {
             return ;
         }
-        const person1=this.users.find(x=>x.socket.id===this.queue.pop())
-        const person2=this.users.find(x=>x.socket.id===this.queue.pop())
+        const id1=this.queue.pop();
+        const id2=this.queue.pop();
+        const person1=this.users.find(x=>x.socket.id===id1)
+        const person2=this.users.find(x=>x.socket.id===id2)
         if(!person1 || !person2) {
             return ;
         }
@@ -63,6 +71,6 @@ export class userManager
 }
     generate()
     {
-        return "1232"
+        return count++;
     }
 }

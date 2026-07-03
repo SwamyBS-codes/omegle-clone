@@ -5,7 +5,7 @@ interface Room {
     user2: User;
     roomId: string;
 }
-
+let count=0;
 export class RoomManager {
     private rooms: Map<string, Room>;
 
@@ -23,7 +23,7 @@ export class RoomManager {
             roomId
         });
 
-        user1.socket.emit("new-room", {
+        user1.socket.emit("send-offer", {
             type: "send-offer",
             roomId
         });
@@ -33,18 +33,23 @@ export class RoomManager {
     {
         const user2=this.rooms.get(roomId)?.user2;
         user2?.socket.emit("offer",{
-            sdp
+            offer:sdp,
+            roomId
         })
     }
 
      onAnswer(roomId:string,sdp:string)
     {
         const user1=this.rooms.get(roomId)?.user1;
-        user1?.socket.emit("offer",{
-            sdp
+        user1?.socket.emit("answer",{
+            answer:sdp,
+            roomId
         })
     }
     generate() {
-        return "1234";
+        return count++;
     }
+   deleteRoom(roomId: string) {
+    this.rooms.delete(roomId);
+}
 }
