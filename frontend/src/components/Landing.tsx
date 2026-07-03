@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight, PlusCircle, LogIn } from "lucide-react";
 import { io } from "socket.io-client";
 
-const SOCKET_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+const SOCKET_URL = import.meta.env.VITE_BACKEND_URL || "https://rejoicing-gizzard-font.ngrok-free.dev";
 
 const Landing = () => {
   const [name, setName] = useState("");

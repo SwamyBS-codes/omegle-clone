@@ -3,8 +3,8 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import { Video, VideoOff, Mic, MicOff, Send, LogOut, RefreshCw, Sparkles, Volume2, VolumeX, Copy, Check, Users } from "lucide-react";
 
-// Use Vite env var `VITE_BACKEND_URL` when available, otherwise default to localhost
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+// Use Vite env var `VITE_BACKEND_URL` when available, otherwise fall back to the ngrok backend URL
+const URL = import.meta.env.VITE_BACKEND_URL || "https://rejoicing-gizzard-font.ngrok-free.dev";
 console.log("BACKEND URL =", URL);
 
 interface Message {
